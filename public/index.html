@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Loading...</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['class', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: 'var(--color-primary)',
+                        accent: 'var(--color-accent)',
+                        background: 'var(--color-bg)',
+                        surface: 'var(--color-surface)',
+                        text: 'var(--color-text)',
+                        textMuted: 'var(--color-text-muted)',
+                        border: 'var(--color-border)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-background text-text font-sans antialiased overflow-x-hidden transition-colors duration-300">
+
+    <!-- Navbar Wrapper -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content Wrapper where sections will be injected -->
+    <main id="main-content">
+        <!-- Loader / Fallback -->
+        <div id="page-loader" class="h-screen w-full flex items-center justify-center fixed inset-0 bg-background z-50 transition-opacity duration-500">
+            <div class="loader-spinner"></div>
+        </div>
+    </main>
+
+    <!-- Footer Wrapper -->
+    <div id="footer-container"></div>
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Main Logic -->
+    <script src="script.js?v=1.0.1"></script>
+</body>
+</html>

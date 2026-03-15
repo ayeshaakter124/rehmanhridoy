@@ -1,0 +1,48 @@
+<!-- Hero Section -->
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-end overflow-hidden pb-[10px]">
+    <!-- Background Elements -->
+    <div class="absolute inset-0 z-0 overflow-hidden" id="hero-media-container">
+        <!-- JS will dynamically inject <video> or <iframe> here -->
+        <div class="absolute inset-0 bg-cover bg-center -z-10" style="background-image: url('{{backgroundImage}}');"></div>
+        <div class="absolute inset-0 bg-black/60 dark:bg-black/70 backdrop-blur-[1px] z-10"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto space-y-8">
+        <div id="hero-badge" class="inline-flex items-center gap-2 py-2 px-5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white font-semibold tracking-widest text-xs uppercase shadow-[0_0_20px_rgba(255,255,255,0.05)] mb-4 animate-on-scroll">
+            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            {{role}}
+        </div>
+        
+        <h1 class="font-heading text-6xl md:text-8xl lg:text-9xl font-extrabold tracking-tighter leading-none text-white drop-shadow-2xl">
+            {{name}}
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto font-light leading-relaxed">
+            {{subtitle}}
+        </p>
+        
+        <div class="pt-8 flex flex-col sm:flex-row items-center justify-center gap-6">
+            <a href="{{ctaLink}}" class="px-8 py-4 rounded-full bg-primary hover:bg-accent hover:text-background text-white font-bold text-lg transition-all duration-300 hover-lift group flex items-center gap-2 shadow-[0_0_20px_var(--color-primary)] hover:shadow-[0_0_25px_var(--color-accent)]">
+                <span>{{ctaText}}</span>
+                <i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            <a href="#about" class="px-8 py-4 rounded-full border border-white/20 hover:border-white/60 text-white font-bold text-lg transition-all duration-300 flex items-center gap-2 group">
+                <i class="ph ph-play-circle text-2xl group-hover:scale-110 transition-transform"></i>
+                <span>Showreel</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce z-20">
+        <i class="ph ph-caret-down text-3xl text-white/50"></i>
+    </div>
+</section>
+
+<!-- Additional script injection for Hero video logic -->
+<script>
+    // Since this script tag is injected dynamically, it won't execute automatically via innerHTML assignment.
+    // Instead of inline scripts, it's better to handle logic in script.js after injection.
+    // However, we can create a custom init function in script.js to look for 'hero-video-container'
+</script>

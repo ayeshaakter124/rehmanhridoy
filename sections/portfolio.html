@@ -1,0 +1,80 @@
+<!-- Portfolio Section -->
+<section id="portfolio" class="py-24 bg-background relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-16 animate-on-scroll">
+            <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-4">{{title}}</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
+        </div>
+        
+        <!-- Filter Buttons (Handled via JS) -->
+        <div id="portfolio-filters" class="flex flex-wrap justify-center gap-4 mb-16 animate-on-scroll">
+            <!-- JS Will inject category buttons here -->
+        </div>
+        
+        <!-- Projects Grid (Handled via JS) -->
+        <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- JS Will inject project cards here -->
+        </div>
+
+        <div class="mt-16 text-center animate-on-scroll">
+            <a href="https://youtube.com" target="_blank" class="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-border hover:border-primary text-text font-medium transition-all duration-300 hover:bg-primary/5 hover-lift">
+                <i class="ph ph-youtube-logo text-2xl text-red-500"></i>
+                <span>View Full Channel</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Project Modal -->
+<div id="video-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+    <div class="absolute inset-0 cursor-pointer" onclick="closeModal()"></div>
+    <div class="relative w-full max-w-5xl mx-4 aspect-video bg-black rounded-lg shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300" id="modal-content">
+        <button onclick="closeModal()" class="absolute -top-12 right-0 text-white hover:text-accent p-2 transition-colors z-[101]">
+            <i class="ph ph-x text-3xl"></i>
+        </button>
+        <iframe id="modal-video" class="w-full h-full border-0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
+
+<script>
+    function openModal(videoUrl) {
+        const modal = document.getElementById('video-modal');
+        const iframe = document.getElementById('modal-video');
+        const content = document.getElementById('modal-content');
+        
+        // Add autoplay parameter to URL if not present
+        let finalUrl = videoUrl;
+        if(videoUrl.includes('youtube.com')) {
+            finalUrl += (videoUrl.includes('?') ? '&' : '?') + 'autoplay=1';
+        } else if(videoUrl.includes('vimeo.com')) {
+             finalUrl += (videoUrl.includes('?') ? '&' : '?') + 'autoplay=1';
+        }
+
+        iframe.src = finalUrl;
+        
+        modal.classList.remove('hidden');
+        // Small delay to allow display block to apply before animating opacity
+        setTimeout(() => {
+            modal.classList.remove('opacity-0');
+            content.classList.remove('scale-95');
+        }, 10);
+        
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('video-modal');
+        const iframe = document.getElementById('modal-video');
+        const content = document.getElementById('modal-content');
+        
+        modal.classList.add('opacity-0');
+        content.classList.add('scale-95');
+        
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            iframe.src = '';
+            document.body.style.overflow = ''; // Restore scrolling
+        }, 300);
+    }
+</script>

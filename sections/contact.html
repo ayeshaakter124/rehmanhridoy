@@ -1,0 +1,81 @@
+<!-- Contact Section -->
+<section id="contact" class="py-24 bg-background relative overflow-hidden">
+    <!-- Glow effect -->
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 animate-on-scroll">
+            <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-4">{{title}}</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mb-6"></div>
+            <p class="text-lg text-textMuted max-w-2xl mx-auto">{{subtitle}}</p>
+        </div>
+        
+        <div class="flex flex-col lg:flex-row gap-16">
+            <!-- Contact Info -->
+            <div class="w-full lg:w-1/3 space-y-8 animate-on-scroll">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Contact Info</h3>
+                    <div class="space-y-6">
+                        <a href="mailto:{{email}}" class="flex items-center gap-4 text-textMuted hover:text-primary transition-colors group">
+                            <div class="w-12 h-12 rounded-full bg-surface border border-border flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                <i class="ph ph-envelope-simple text-2xl"></i>
+                            </div>
+                            <span class="text-lg">{{email}}</span>
+                        </a>
+                        <a href="https://wa.me/{{whatsappClean}}" target="_blank" class="flex items-center gap-4 text-textMuted hover:text-primary transition-colors group">
+                            <div class="w-12 h-12 rounded-full bg-surface border border-border flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                <i class="ph ph-whatsapp-logo text-2xl"></i>
+                            </div>
+                            <span class="text-lg">{{whatsapp}}</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 pt-4 border-t border-border">Follow Me</h3>
+                    <div id="socials-container" class="flex flex-wrap gap-4">
+                        <!-- JS Will inject socials here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="w-full lg:w-2/3 animate-on-scroll">
+                <!-- Status Banner (hidden by default) -->
+                <div id="contact-status" class="hidden mb-6 px-6 py-4 rounded-xl text-sm font-semibold flex items-center gap-3"></div>
+
+                <form id="contact-form" class="space-y-6 bg-surface p-8 rounded-2xl border border-border pb-10 shadow-2xl relative">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent rounded-t-2xl"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-textMuted mb-2">Name</label>
+                            <input id="contact-name" type="text" class="w-full bg-background border border-border rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-text placeholder-textMuted/50" placeholder="John Doe" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-textMuted mb-2">Email</label>
+                            <input id="contact-email" type="email" class="w-full bg-background border border-border rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-text placeholder-textMuted/50" placeholder="john@example.com" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-textMuted mb-2">Subject</label>
+                        <select id="contact-subject" class="w-full bg-background border border-border rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-text appearance-none">
+                            <option>YouTube Editing</option>
+                            <option>Cinematic Edit</option>
+                            <option>Commercial Promo</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-textMuted mb-2">Message</label>
+                        <textarea id="contact-message" rows="5" class="w-full bg-background border border-border rounded-lg px-4 py-3 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-text placeholder-textMuted/50" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+                    <button id="contact-submit" type="submit" class="px-8 py-4 w-full md:w-auto rounded-lg bg-primary hover:bg-accent text-white font-bold text-lg transition-all duration-300 hover-lift shadow-[0_0_20px_var(--color-primary)] hover:shadow-[0_0_25px_var(--color-accent)] flex items-center gap-3">
+                        <span id="contact-btn-text">Send Message</span>
+                        <i id="contact-btn-icon" class="ph ph-paper-plane-tilt text-xl"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,228 @@
+{
+  "site": {
+    "title": "Rehman Hridoy",
+    "description": "Portfolio of Rehman Hridoy, a professional video editor specializing in YouTube documentaries, cinematic reels, and commercial video editing.",
+    "theme": "dark",
+    "favicon": "assets/images/favicon.png",
+    "primaryColor": "#58181F",
+    "accentColor": "#ff4d4d"
+  },
+  "hero": {
+    "name": "Rehman Hridoy",
+    "role": "Professional Video Editor",
+    "subtitle": "Bringing your vision to life through cinematic storytelling.",
+    "backgroundVideo": "https://www.youtube.com/embed/P7vt-dvNTss?si=s_w-YXfuRoKX0IBm",
+    "backgroundImage": "https://images.unsplash.com/photo-1535016120720-40c746a46518?q=80&w=1920&auto=format&fit=crop",
+    "ctaText": "View My Work",
+    "ctaLink": "#portfolio"
+  },
+  "about": {
+    "title": "About Me",
+    "bio": "I am a passionate video editor with over 5 years of experience in crafting compelling visual narratives. From fast-paced YouTube documentaries to emotionally driven cinematic pieces, I specialize in keeping audiences engaged. My approach combines technical precision with creative flair.",
+    "image": "../img/Profile.png",
+    "skills": [
+      "Adobe Premiere Pro",
+      "After Effects",
+      "DaVinci Resolve",
+      "Color Grading",
+      "Sound Design",
+      "Motion Graphics"
+    ],
+    "stats": [
+      {
+        "label": "Years Experience",
+        "value": "5+"
+      },
+      {
+        "label": "Projects Completed",
+        "value": "200+"
+      },
+      {
+        "label": "Happy Clients",
+        "value": "50+"
+      }
+    ]
+  },
+  "portfolio": {
+    "title": "Featured Work",
+    "categories": [
+      "All",
+      "YouTube",
+      "Commercial",
+      "Cinematic"
+    ],
+    "projects": [
+      {
+        "id": "proj1",
+        "title": "The Tech Revolution",
+        "category": "YouTube",
+        "thumbnail": "https://images.unsplash.com/photo-1627856013091-fed6e4e30025?q=80&w=800&auto=format&fit=crop",
+        "videoUrl": "https://www.youtube.com/embed/UomySxJv6oM?rel=0",
+        "description": "A deep dive into modern technology trends."
+      },
+      {
+        "id": "proj2",
+        "title": "Neon Nights Energy Drink",
+        "category": "Commercial",
+        "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "description": "High-energy commercial edit with snappy cuts."
+      },
+      {
+        "id": "proj3",
+        "title": "Mountain Odyssey",
+        "category": "Cinematic",
+        "thumbnail": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop",
+        "videoUrl": "https://player.vimeo.com/video/76979871",
+        "description": "A visually stunning short film shot in the Alps."
+      },
+      {
+        "id": "proj4",
+        "title": "History Untold",
+        "category": "YouTube",
+        "thumbnail": "https://images.unsplash.com/photo-1461360370896-922624d12aa1?q=80&w=800&auto=format&fit=crop",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "description": "Historical documentary style video editing."
+      },
+      {
+        "id": "proj5",
+        "title": "Urban Exploration",
+        "category": "Cinematic",
+        "thumbnail": "https://images.unsplash.com/photo-1519608487953-e999c86e7455?q=80&w=800&auto=format&fit=crop",
+        "videoUrl": "https://player.vimeo.com/video/76979871",
+        "description": "Moody, highly color-graded exploration piece."
+      },
+      {
+        "id": "proj6",
+        "title": "Fitness App Promo",
+        "category": "Commercial",
+        "thumbnail": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=800&auto=format&fit=crop",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "description": "Fast-paced promo material for social media."
+      }
+    ]
+  },
+  "services": {
+    "title": "My Services",
+    "items": [
+      {
+        "icon": "ph-youtube-logo",
+        "title": "YouTube Editing",
+        "description": "Engaging cuts, motion graphics, and sound design tailored for audience retention."
+      },
+      {
+        "icon": "ph-film-strip",
+        "title": "Cinematic Editing",
+        "description": "Story-driven editing, advanced color grading, and atmospheric soundscapes."
+      },
+      {
+        "icon": "ph-instagram-logo",
+        "title": "Social Media Reels",
+        "description": "Fast-paced, high-retention vertical videos optimized for TikTok, Reels, and Shorts."
+      },
+      {
+        "icon": "ph-video-camera",
+        "title": "Documentary Editing",
+        "description": "Structuring complex narratives, b-roll integration, and professional audio mixing."
+      }
+    ]
+  },
+  "testimonials": {
+    "title": "Client Testimonials",
+    "reviews": [
+      {
+        "name": "Sarah Jenkins",
+        "role": "Content Creator",
+        "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop",
+        "text": "Alex completely transformed my YouTube channel. The editing is crisp, and audience retention is up by 40%!"
+      },
+      {
+        "name": "David Lee",
+        "role": "Marketing Director",
+        "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop",
+        "text": "Delivered a premium commercial that perfectly matched our brand vision. Insanely talented and professional."
+      },
+      {
+        "name": "Emily Chen",
+        "role": "Filmmaker",
+        "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=150&auto=format&fit=crop",
+        "text": "The color grading and pacing on my short film were phenomenal. Alex has a true eye for cinematic detail."
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Pricing Packages",
+    "packages": [
+      {
+        "name": "Basic Shorts",
+        "price": "$50",
+        "frequency": "/video",
+        "features": [
+          "Up to 60 seconds",
+          "Basic cuts & captions",
+          "Stock music",
+          "1 Revision"
+        ],
+        "isPopular": false
+      },
+      {
+        "name": "Pro YouTube",
+        "price": "$250",
+        "frequency": "/video",
+        "features": [
+          "Up to 15 minutes",
+          "Advanced editing & VFX",
+          "Sound design & mixing",
+          "Thumbnail included",
+          "3 Revisions"
+        ],
+        "isPopular": true
+      },
+      {
+        "name": "Cinematic Pack",
+        "price": "$800+",
+        "frequency": "/project",
+        "features": [
+          "Custom duration",
+          "Premium color grading",
+          "Complex animations",
+          "Full soundscaping",
+          "Unlimited Revisions"
+        ],
+        "isPopular": false
+      }
+    ]
+  },
+  "contact": {
+    "title": "Let's Work Together",
+    "subtitle": "Ready to bring your vision to life? Get in touch today.",
+    "email": "reemanhridoy@gmail.com",
+    "whatsapp": "+8801577335667",
+    "socials": [
+      {
+        "name": "Instagram",
+        "icon": "ph-instagram-logo",
+        "url": "#"
+      },
+      {
+        "name": "Twitter",
+        "icon": "ph-twitter-logo",
+        "url": "#"
+      },
+      {
+        "name": "LinkedIn",
+        "icon": "ph-linkedin-logo",
+        "url": "#"
+      },
+      {
+        "name": "YouTube",
+        "icon": "ph-youtube-logo",
+        "url": "#"
+      }
+    ]
+  },
+  "footer": {
+    "title": "Alex Mercer",
+    "text": "© 2026 Alex Mercer. All rights reserved."
+  }
+}

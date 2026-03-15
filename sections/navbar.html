@@ -1,0 +1,54 @@
+<!-- Navbar Section -->
+<nav class="fixed top-0 w-full z-50 glass border-b transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <a href="#" class="font-heading font-bold text-2xl text-gradient">{{title}}</a>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:block">
+                <div class="ml-10 flex items-baseline space-x-8 lg:space-x-12">
+                    <a href="#about" class="hover:text-primary transition-colors duration-200">About</a>
+                    <a href="#portfolio" class="hover:text-primary transition-colors duration-200">Work</a>
+                    <a href="#services" class="hover:text-primary transition-colors duration-200">Services</a>
+                    <a href="#contact" class="hover:text-primary transition-colors duration-200">Contact</a>
+                    
+                    <!-- Theme Toggle -->
+                    <button class="theme-toggle hover:text-accent transition-colors duration-200" aria-label="Toggle Theme">
+                        <i class="ph ph-moon text-xl hidden dark:block"></i>
+                        <i class="ph ph-sun text-xl block dark:hidden"></i>
+                    </button>
+                    
+                    <a href="#contact" class="px-5 py-2.5 rounded-full inline-flex items-center space-x-2 bg-text text-background font-medium hover-lift">
+                        <span>Hire Me</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="-mr-2 flex md:hidden items-center space-x-4">
+                <button class="theme-toggle hover:text-accent transition-colors duration-200" aria-label="Toggle Theme">
+                    <i class="ph ph-moon text-xl hidden dark:block"></i>
+                    <i class="ph ph-sun text-xl block dark:hidden"></i>
+                </button>
+                <button type="button" class="inline-flex items-center justify-center p-2 rounded-md hover:text-primary hover:bg-surface focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" aria-controls="mobile-menu" aria-expanded="false" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                    <span class="sr-only">Open main menu</span>
+                    <i class="ph ph-list text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden hidden glass" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+            <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary hover:bg-surface" onclick="document.getElementById('mobile-menu').classList.add('hidden')">About</a>
+            <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary hover:bg-surface" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Work</a>
+            <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary hover:bg-surface" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Services</a>
+            <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-primary hover:bg-surface" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+            
+        </div>
+    </div>
+</nav>
