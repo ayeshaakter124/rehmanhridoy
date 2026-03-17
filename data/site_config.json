@@ -62,19 +62,19 @@
       },
       {
         "id": "proj2",
-        "title": "Neon Nights Energy Drink",
-        "category": "Commercial",
-        "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop",
-        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "title": "Google lens Smooth motion",
+        "category": "Reels",
+        "thumbnail": "https://image2url.com/r2/default/images/1773732821782-eb792c67-49a7-47e1-b2fa-e2ed44968ba3.png",
+        "videoUrl": "https://www.youtube.com/embed/2vWH764AUE8?rel=0",
         "description": "High-energy commercial edit with snappy cuts."
       },
       {
         "id": "proj3",
-        "title": "Mountain Odyssey",
-        "category": "Cinematic",
-        "thumbnail": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800&auto=format&fit=crop",
-        "videoUrl": "https://player.vimeo.com/video/76979871",
-        "description": "A visually stunning short film shot in the Alps."
+        "title": "Motion",
+        "category": "Reels",
+        "thumbnail": "https://image2url.com/r2/default/images/1773733334051-b759520a-5af5-4bd7-a557-d6c544fbc998.jpg",
+        "videoUrl": "https://www.youtube.com/embed/UomySxJv6oM?rel=0",
+        "description": "A visually stunning short."
       },
       {
         "id": "proj4",
