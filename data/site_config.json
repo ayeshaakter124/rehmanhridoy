@@ -169,13 +169,13 @@
       },
       {
         "name": "Pro YouTube",
-        "price": "$250",
+        "price": "$200",
         "frequency": "/video",
         "features": [
-          "Up to 15 minutes",
-          "Advanced editing & VFX",
+          "Up to 10 minutes",
+          "Advanced editing",
           "Sound design & mixing",
-          "Thumbnail included",
+          "SaaS Animations",
           "3 Revisions"
         ],
         "isPopular": true
@@ -224,7 +224,7 @@
     ]
   },
   "footer": {
-    "title": "Alex Mercer",
+    "title": "Rehman Hridoy",
     "text": "© 2024 Rehman Hridoy. All rights reserved."
   }
 }
