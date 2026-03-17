@@ -160,6 +160,7 @@
         "features": [
           "Up to 60 seconds",
           "Basic cuts & captions",
+          "B-roll & Basic animation",
           "Stock music",
           "1 Revision"
         ],
@@ -223,6 +224,6 @@
   },
   "footer": {
     "title": "Alex Mercer",
-    "text": "© 2026 Alex Mercer. All rights reserved."
+    "text": "© 2024 Rehman Hridoy. All rights reserved."
   }
 }
