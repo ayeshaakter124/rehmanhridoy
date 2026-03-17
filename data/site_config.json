@@ -54,11 +54,11 @@
     "projects": [
       {
         "id": "proj1",
-        "title": "The Tech Revolution",
+        "title": "My portfolio",
         "category": "YouTube",
-        "thumbnail": "https://www.youtube.com/embed/UomySxJv6oM?rel=0",
-        "videoUrl": "https://www.youtube.com/embed/UomySxJv6oM?rel=0",
-        "description": "A deep dive into modern technology trends."
+        "thumbnail": "https://image2url.com/r2/default/images/1773732207405-e99746c1-3a03-4a28-88f3-aa6daeaa75f1.jpg",
+        "videoUrl": "https://www.youtube.com/embed/Km3JE6JZeKw?si=bsdpLbgcWy4jrnvr",
+        "description": "A deep dive into modern technology protfolio."
       },
       {
         "id": "proj2",
