@@ -7,8 +7,8 @@ import { ProfileHeroData, ContactInfo } from "../lib/cmsTypes";
 
 const navLinks = [
   { name: "Home", href: "/", number: "01" },
-  { name: "Services", href: "/#services", number: "02" },
-  { name: "Work", href: "/work", number: "03" },
+  { name: "Work", href: "/#portfolio", number: "02" },
+  { name: "Services", href: "/#services", number: "03" },
   { name: "Reviews", href: "/#testimonials", number: "04" },
   { name: "About", href: "/#about", number: "05" },
   { name: "Contact", href: "/#contact", number: "06" },
