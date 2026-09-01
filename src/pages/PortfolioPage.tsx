@@ -13,10 +13,10 @@ const getYouTubeId = (url: string) => {
   return match ? match[1] : null;
 };
 
-const BASE_CATEGORIES = ["All", "Reels", "Commercial", "Saas Animation", "Documentary", "Motion Graphics"];
+const BASE_CATEGORIES = ["Reels", "Commercial", "Saas Animation", "Documentary", "Motion Graphics"];
 
 export default function PortfolioPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeCategory, setActiveCategory] = useState("Reels");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedVideo, setSelectedVideo] = useState<{ id: string, title: string } | null>(null);
   const [videoProjects, setVideoProjects] = useState<ProjectItem[]>(() => 
@@ -36,15 +36,14 @@ export default function PortfolioPage() {
   // Compute unique categories from projects plus base categories
   const categories = Array.from(
     new Set([
-      "All",
-      ...BASE_CATEGORIES.slice(1),
+      ...BASE_CATEGORIES,
       ...videoProjects.map(p => p.category).filter(Boolean)
     ])
   );
 
   const filteredVideos = useMemo(() => {
     return videoProjects.filter((video) => {
-      const matchesCategory = activeCategory === "All" || video.category === activeCategory;
+      const matchesCategory = video.category === activeCategory;
       const matchesSearch = !searchQuery.trim() || 
                             video.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                             video.description.toLowerCase().includes(searchQuery.toLowerCase());

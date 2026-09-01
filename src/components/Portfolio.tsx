@@ -13,10 +13,10 @@ const getYouTubeId = (url: string) => {
   return match ? match[1] : null;
 };
 
-const BASE_CATEGORIES = ["All", "Reels", "Commercial", "Saas Animation", "Documentary", "Motion Graphics"];
+const BASE_CATEGORIES = ["Reels", "Commercial", "Saas Animation", "Documentary", "Motion Graphics"];
 
 export default function Portfolio() {
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeTab, setActiveTab] = useState("Reels");
   const [selectedVideo, setSelectedVideo] = useState<{ id: string, title: string } | null>(null);
   const [projectsList, setProjectsList] = useState<ProjectItem[]>(() => 
     cmsStore.getProjects().filter(p => p.published)
@@ -37,15 +37,12 @@ export default function Portfolio() {
   // Compute unique categories from projects plus base categories
   const categories = Array.from(
     new Set([
-      "All",
-      ...BASE_CATEGORIES.slice(1),
+      ...BASE_CATEGORIES,
       ...projectsList.map(p => p.category).filter(Boolean)
     ])
   );
 
-  const filteredProjects = activeTab === "All"
-    ? projectsList
-    : projectsList.filter(p => p.category === activeTab);
+  const filteredProjects = projectsList.filter(p => p.category === activeTab);
 
   return (
     <section id="portfolio" className="py-16 sm:py-24 bg-primary relative overflow-hidden">
