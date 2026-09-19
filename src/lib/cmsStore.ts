@@ -91,7 +91,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       slug: "real-estate-commercial",
       category: "Commercial",
       description: "Cinematic real estate showcase for high-end luxury properties with immersive camera movements.",
-      thumbnail: "https://i.postimg.cc/CLhKLMLm/video-captu.png",
+      thumbnail: "https://img.youtube.com/vi/fKsmQyZc9QE/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/fKsmQyZc9QE?si=6wwK2edJFOEFsn1n",
       duration: "2:15",
       role: "Lead Editor & Colorist",
@@ -107,7 +107,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       slug: "laptop-review-reel",
       category: "Reels",
       description: "High-retention tech review with dynamic cuts, typography pop-ups, and custom sound design.",
-      thumbnail: "https://i.postimg.cc/vZMXF08T/video-capture-t0009-54seg-3118.png",
+      thumbnail: "https://img.youtube.com/vi/YMvdoeu4CIs/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/YMvdoeu4CIs?rel=0",
       duration: "0:50",
       role: "Short-form Creative Editor",
@@ -123,7 +123,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       slug: "google-lens-concept",
       category: "Saas Animation",
       description: "Clean SaaS motion graphics and UI showcase demonstrating real-world visual search interactions.",
-      thumbnail: "https://i.postimg.cc/ydSwHbGG/2v-WH764AUE8-HD.jpg",
+      thumbnail: "https://img.youtube.com/vi/2vWH764AUE8/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/2vWH764AUE8?rel=0",
       duration: "1:30",
       role: "Motion Designer",
@@ -138,7 +138,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       slug: "bangladesh-growth-infographic",
       category: "Motion Graphics",
       description: "Dynamic corporate motion graphics and statistical visualization designed for Renata Ltd.",
-      thumbnail: "https://i.postimg.cc/L6m0C5mD/dc-TUgs-XTc-QI-HD.jpg",
+      thumbnail: "https://img.youtube.com/vi/dcTUgsXTcQI/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/dcTUgsXTcQI?rel=0",
       duration: "1:15",
       role: "Infographic Animator",
@@ -154,7 +154,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       slug: "colmi-watch-review",
       category: "Reels",
       description: "High-energy smartwatch product showcase and feature breakdown built for viral TikTok & Instagram reels.",
-      thumbnail: "https://i.postimg.cc/MpbHWcyZ/video-capture-t0001-11seg-2351.png",
+      thumbnail: "https://img.youtube.com/vi/HVlWqPzX9eA/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/HVlWqPzX9eA?rel=0",
       duration: "0:45",
       role: "Product Video Editor",
@@ -182,7 +182,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       slug: "fashion-clothing-ad",
       category: "Reels",
       description: "High-fashion viral apparel reel with fast pacing, seamless whip pans, and rhythmic transitions.",
-      thumbnail: "https://i.postimg.cc/HxL2gcPt/video-capture-t0008-54seg-9456.png",
+      thumbnail: "https://img.youtube.com/vi/r4FmQWtIgQM/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/r4FmQWtIgQM?rel=0",
       duration: "0:40",
       role: "Commercial Editor",
@@ -196,7 +196,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       slug: "cosmetic-commercial-ad",
       category: "Reels",
       description: "Luxury cosmetic brand promo featuring sleek skin retouching, macro cuts, and color grading.",
-      thumbnail: "https://i.postimg.cc/SR67L6XS/video-capture-t0042-74seg-2887.png",
+      thumbnail: "https://img.youtube.com/vi/8nDc0bLlMz8/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/8nDc0bLlMz8?rel=0",
       duration: "0:35",
       role: "Colorist & Editor",
@@ -210,7 +210,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       slug: "podcast-hook-mindset",
       category: "Commercial",
       description: "Viral podcast hook edit engineered for maximum audience retention on YouTube Shorts.",
-      thumbnail: "https://i.postimg.cc/CLh1fT25/maxresdefault.jpg",
+      thumbnail: "https://img.youtube.com/vi/0cbrRER0xzg/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/0cbrRER0xzg?si=Icr4sAryqEgsa9Hp",
       duration: "1:00",
       role: "Retention Specialist",
@@ -224,7 +224,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       slug: "podcast-hook-psychology",
       category: "Commercial",
       description: "Engaging podcast short with dynamic animated captions, sound effects, and B-roll inserts.",
-      thumbnail: "https://i.postimg.cc/rFVmtXPb/maxresdefault-(1).jpg",
+      thumbnail: "https://img.youtube.com/vi/u2rpS7niDXw/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/u2rpS7niDXw?si=53IG2DnTF6ZIXIVv",
       duration: "1:20",
       role: "Short-form Producer",
@@ -239,7 +239,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       id: "vid_1",
       title: "Luxury Real Estate Film",
       youtubeUrl: "https://www.youtube.com/embed/fKsmQyZc9QE?si=6wwK2edJFOEFsn1n",
-      thumbnail: "https://i.postimg.cc/CLhKLMLm/video-captu.png",
+      thumbnail: "https://img.youtube.com/vi/fKsmQyZc9QE/hqdefault.jpg",
       category: "Commercial",
       client: "Luxury Living",
       duration: "2:15",
@@ -252,7 +252,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       id: "vid_2",
       title: "Next-Gen Tech Review Reel",
       youtubeUrl: "https://www.youtube.com/embed/YMvdoeu4CIs?rel=0",
-      thumbnail: "https://i.postimg.cc/vZMXF08T/video-capture-t0009-54seg-3118.png",
+      thumbnail: "https://img.youtube.com/vi/YMvdoeu4CIs/hqdefault.jpg",
       category: "Reels",
       client: "TechVibe",
       duration: "0:50",
@@ -265,7 +265,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       id: "vid_3",
       title: "Corporate Growth Motion Graphics",
       youtubeUrl: "https://www.youtube.com/embed/dcTUgsXTcQI?rel=0",
-      thumbnail: "https://i.postimg.cc/L6m0C5mD/dc-TUgs-XTc-QI-HD.jpg",
+      thumbnail: "https://img.youtube.com/vi/dcTUgsXTcQI/hqdefault.jpg",
       category: "Motion Graphics",
       client: "Renata Ltd.",
       duration: "1:15",
@@ -278,7 +278,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       id: "vid_4",
       title: "Smartwatch Viral Commercial",
       youtubeUrl: "https://www.youtube.com/embed/HVlWqPzX9eA?rel=0",
-      thumbnail: "https://i.postimg.cc/MpbHWcyZ/video-capture-t0001-11seg-2351.png",
+      thumbnail: "https://img.youtube.com/vi/HVlWqPzX9eA/hqdefault.jpg",
       category: "Reels",
       client: "Colmi",
       duration: "0:45",
@@ -513,7 +513,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       role: "Head Chef",
       company: "Italian Bistro",
       text: "Rehman's video work captured the true culinary spirit of our restaurant. Engagement on our promotions exploded right after release.",
-      image: "https://i.postimg.cc/t4mYjS24/video-capture-t0006-51seg-3115.png",
+      image: "https://img.youtube.com/vi/1YlvpCCTWls/hqdefault.jpg",
       youtubeUrl: "https://www.youtube.com/embed/1YlvpCCTWls?rel=0",
       rating: 5,
       featured: true,
@@ -655,7 +655,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
     siteTitle: "Rehman Hridoy | Sr. Video Editor & Creative Director",
     metaDescription: "Professional Video Editor & Creative Director specializing in commercial ads, viral reels, SaaS motion graphics, and cinematic video editing.",
     keywords: ["Video Editor", "Rehman Hridoy", "Creative Director", "Commercials", "Reels", "Motion Graphics", "DaVinci Resolve", "Premiere Pro"],
-    ogImage: "https://i.postimg.cc/CLhKLMLm/video-captu.png",
+    ogImage: "https://img.youtube.com/vi/fKsmQyZc9QE/hqdefault.jpg",
     socialShareTitle: "Rehman Hridoy | Sr. Video Editor & Creative Director",
     socialShareDescription: "Crafting high-octane visual experiences and viral commercial content for digital-first brands.",
     author: "Rehman Hridoy",
@@ -665,7 +665,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
     {
       id: "med_1",
       title: "Real Estate Commercial Thumbnail",
-      url: "https://i.postimg.cc/CLhKLMLm/video-captu.png",
+      url: "https://img.youtube.com/vi/fKsmQyZc9QE/hqdefault.jpg",
       type: "image",
       category: "Project Thumbnails",
       createdAt: new Date().toISOString(),
@@ -673,7 +673,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
     {
       id: "med_2",
       title: "Tech Review Reel Thumbnail",
-      url: "https://i.postimg.cc/vZMXF08T/video-capture-t0009-54seg-3118.png",
+      url: "https://img.youtube.com/vi/YMvdoeu4CIs/hqdefault.jpg",
       type: "image",
       category: "Project Thumbnails",
       createdAt: new Date().toISOString(),
@@ -692,6 +692,23 @@ export const DEFAULT_CMS_STATE: CMSState = {
     },
   ],
 };
+
+export function extractYouTubeId(url?: string): string | null {
+  if (!url) return null;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[2].length === 11) ? match[2] : null;
+}
+
+export function sanitizeThumbnail(url?: string, youtubeUrl?: string): string {
+  const ytId = extractYouTubeId(youtubeUrl);
+  const ytThumb = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : "";
+  
+  if (!url || typeof url !== "string" || url.trim() === "" || url.includes("postimg.cc")) {
+    return ytThumb || "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800&auto=format&fit=crop";
+  }
+  return url;
+}
 
 const notifyUpdate = () => {
   window.dispatchEvent(new Event("cms_data_updated"));
@@ -718,7 +735,14 @@ export const cmsStore = {
   // --- Entity Helpers ---
   getProfile(): ProfileHeroData { 
     const saved = this.get("profile");
-    return { ...DEFAULT_CMS_STATE.profile, ...(saved || {}) };
+    const merged = { ...DEFAULT_CMS_STATE.profile, ...(saved || {}) };
+    if (merged.portraitUrl && merged.portraitUrl.includes("postimg.cc")) {
+      merged.portraitUrl = "";
+    }
+    if (merged.aboutPortraitUrl && merged.aboutPortraitUrl.includes("postimg.cc")) {
+      merged.aboutPortraitUrl = "";
+    }
+    return merged;
   },
   saveProfile(data: Partial<ProfileHeroData>): ProfileHeroData {
     const current = this.getProfile();
@@ -767,7 +791,13 @@ export const cmsStore = {
     return this.set("experiences", filtered);
   },
 
-  getProjects(): ProjectItem[] { return this.get("projects"); },
+  getProjects(): ProjectItem[] {
+    const raw = this.get("projects") || DEFAULT_CMS_STATE.projects;
+    return raw.map(p => ({
+      ...p,
+      thumbnail: sanitizeThumbnail(p.thumbnail, p.youtubeUrl),
+    }));
+  },
   saveProject(item: Partial<ProjectItem> & { id?: string }): ProjectItem[] {
     const list = this.getProjects();
     if (item.id) {
@@ -783,7 +813,7 @@ export const cmsStore = {
         title: item.title || "Untitled Project",
         slug: (item.title || "untitled").toLowerCase().replace(/[^a-z0-9]+/g, "-"),
         category: item.category || "Reels",
-        thumbnail: item.thumbnail || "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800&auto=format&fit=crop",
+        thumbnail: sanitizeThumbnail(item.thumbnail, item.youtubeUrl) || "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800&auto=format&fit=crop",
         youtubeUrl: item.youtubeUrl || "",
         description: item.description || "",
         duration: item.duration || "0:30",
@@ -801,7 +831,13 @@ export const cmsStore = {
     return this.set("projects", filtered);
   },
 
-  getVideos(): VideoItem[] { return this.get("videos"); },
+  getVideos(): VideoItem[] {
+    const raw = this.get("videos") || DEFAULT_CMS_STATE.videos;
+    return raw.map(v => ({
+      ...v,
+      thumbnail: sanitizeThumbnail(v.thumbnail, v.youtubeUrl),
+    }));
+  },
   saveVideo(item: Partial<VideoItem> & { id?: string }): VideoItem[] {
     const list = this.getVideos();
     if (item.id) {
@@ -1188,16 +1224,34 @@ export const cmsStore = {
 
     keys.forEach(k => {
       if (bundle[k] !== undefined && bundle[k] !== null) {
+        let val = bundle[k];
+        if (k === "profile" && val && typeof val === "object") {
+          val = { ...val };
+          if (val.portraitUrl && val.portraitUrl.includes("postimg.cc")) val.portraitUrl = "";
+          if (val.aboutPortraitUrl && val.aboutPortraitUrl.includes("postimg.cc")) val.aboutPortraitUrl = "";
+        }
+        if (k === "projects" && Array.isArray(val)) {
+          val = val.map((p: any) => ({
+            ...p,
+            thumbnail: sanitizeThumbnail(p.thumbnail, p.youtubeUrl),
+          }));
+        }
+        if (k === "videos" && Array.isArray(val)) {
+          val = val.map((v: any) => ({
+            ...v,
+            thumbnail: sanitizeThumbnail(v.thumbnail, v.youtubeUrl),
+          }));
+        }
         if (Array.isArray(DEFAULT_CMS_STATE[k])) {
-          if (Array.isArray(bundle[k])) {
-            localStorage.setItem(`${CMS_STORAGE_PREFIX}${k}`, JSON.stringify(bundle[k]));
+          if (Array.isArray(val)) {
+            localStorage.setItem(`${CMS_STORAGE_PREFIX}${k}`, JSON.stringify(val));
           }
         } else if (typeof DEFAULT_CMS_STATE[k] === "object") {
           // Merge with default object so new fields are never lost
-          const merged = { ...(DEFAULT_CMS_STATE[k] as any), ...bundle[k] };
+          const merged = { ...(DEFAULT_CMS_STATE[k] as any), ...val };
           localStorage.setItem(`${CMS_STORAGE_PREFIX}${k}`, JSON.stringify(merged));
         } else {
-          localStorage.setItem(`${CMS_STORAGE_PREFIX}${k}`, JSON.stringify(bundle[k]));
+          localStorage.setItem(`${CMS_STORAGE_PREFIX}${k}`, JSON.stringify(val));
         }
       }
     });

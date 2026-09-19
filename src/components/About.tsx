@@ -1,21 +1,36 @@
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import aboutPortrait from "../assets/images/user_about_portrait.jpg";
+import aboutPortrait from "../assets/images/rehman_about_portrait_1783623356059.jpg";
 import { cmsStore } from "../lib/cmsStore";
 import { ProfileHeroData, SkillItem, WebsiteContent, StatItem } from "../lib/cmsTypes";
+
+const getSafeAboutImage = (aboutUrl?: string, portraitUrl?: string) => {
+  if (aboutUrl && aboutUrl.trim() !== "" && !aboutUrl.includes("postimg.cc")) {
+    return aboutUrl;
+  }
+  if (portraitUrl && portraitUrl.trim() !== "" && !portraitUrl.includes("postimg.cc")) {
+    return portraitUrl;
+  }
+  return aboutPortrait;
+};
 
 export default function About() {
   const [profile, setProfile] = useState<ProfileHeroData>(() => cmsStore.getProfile());
   const [content, setContent] = useState<WebsiteContent>(() => cmsStore.getContent());
   const [skills, setSkills] = useState<SkillItem[]>(() => cmsStore.getSkills().filter(s => s.visible));
   const [stats, setStats] = useState<StatItem[]>(() => cmsStore.getStats());
+  const [portraitSrc, setPortraitSrc] = useState<string>(() => 
+    getSafeAboutImage(cmsStore.getProfile().aboutPortraitUrl, cmsStore.getProfile().portraitUrl)
+  );
 
   useEffect(() => {
     const handleUpdate = () => {
-      setProfile(cmsStore.getProfile());
+      const p = cmsStore.getProfile();
+      setProfile(p);
       setContent(cmsStore.getContent());
       setSkills(cmsStore.getSkills().filter(s => s.visible));
       setStats(cmsStore.getStats());
+      setPortraitSrc(getSafeAboutImage(p.aboutPortraitUrl, p.portraitUrl));
     };
     window.addEventListener("cms_data_updated", handleUpdate);
     return () => {
@@ -26,12 +41,6 @@ export default function About() {
   const yearsExp = stats.find(s => s.label.toLowerCase().includes("year"))?.value || "2+";
   const projectsCount = stats.find(s => s.label.toLowerCase().includes("project"))?.value || "183+";
   const happyClientsCount = stats.find(s => s.label.toLowerCase().includes("client"))?.value || "47+";
-
-  const displayPortrait = profile.aboutPortraitUrl && profile.aboutPortraitUrl.trim() !== ""
-    ? profile.aboutPortraitUrl
-    : profile.portraitUrl && profile.portraitUrl.trim() !== ""
-    ? profile.portraitUrl
-    : aboutPortrait;
 
   return (
     <section id="about" className="py-16 sm:py-24 md:py-32 relative overflow-hidden bg-primary">
@@ -49,13 +58,13 @@ export default function About() {
             <div className="absolute inset-0 bg-accent/15 blur-[40px] sm:blur-[60px] rounded-full z-0 opacity-15 pointer-events-none" />
             <div className="relative z-10 aspect-[4/5] w-full min-h-[320px] sm:min-h-[420px] rounded-[24px] sm:rounded-[2rem] overflow-hidden border border-white/10 glass-dark bg-secondary/80 glow-lg group flex items-center justify-center">
               <img 
-                src={displayPortrait}
+                src={portraitSrc}
                 alt={`${profile.name || "Rehman Hridoy"} - Creative Director`} 
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 select-none" 
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = aboutPortrait;
+                onError={() => {
+                  setPortraitSrc(aboutPortrait);
                 }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent pointer-events-none" />

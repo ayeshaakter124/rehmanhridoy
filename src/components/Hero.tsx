@@ -2,20 +2,31 @@ import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { Play, ChevronRight, Star, Users, Award, Sparkles, Film, CheckCircle2 } from "lucide-react";
+import heroPoster from "../assets/images/user_hero_poster.png";
 import heroPortrait from "../assets/images/user_hero_portrait.jpg";
 import { cmsStore } from "../lib/cmsStore";
 import { ProfileHeroData, WebsiteContent, StatItem } from "../lib/cmsTypes";
+
+const getSafeHeroImage = (url?: string) => {
+  if (!url || typeof url !== "string" || url.trim() === "" || url.includes("postimg.cc")) {
+    return heroPoster || heroPortrait;
+  }
+  return url;
+};
 
 export default function Hero() {
   const [profile, setProfile] = useState<ProfileHeroData>(() => cmsStore.getProfile());
   const [content, setContent] = useState<WebsiteContent>(() => cmsStore.getContent());
   const [stats, setStats] = useState<StatItem[]>(() => cmsStore.getStats());
+  const [portraitSrc, setPortraitSrc] = useState<string>(() => getSafeHeroImage(cmsStore.getProfile().portraitUrl));
 
   useEffect(() => {
     const handleUpdate = () => {
-      setProfile(cmsStore.getProfile());
+      const p = cmsStore.getProfile();
+      setProfile(p);
       setContent(cmsStore.getContent());
       setStats(cmsStore.getStats());
+      setPortraitSrc(getSafeHeroImage(p.portraitUrl));
     };
     window.addEventListener("cms_data_updated", handleUpdate);
     window.addEventListener("rh_data_updated", handleUpdate);
@@ -28,10 +39,6 @@ export default function Hero() {
   const yearsExp = stats.find(s => s.label.toLowerCase().includes("year"))?.value || "2+";
   const projectsCount = stats.find(s => s.label.toLowerCase().includes("project"))?.value || "183+";
   const happyClientsCount = stats.find(s => s.label.toLowerCase().includes("client"))?.value || "47+";
-
-  const displayPortrait = profile.portraitUrl && profile.portraitUrl.trim() !== "" 
-    ? profile.portraitUrl 
-    : heroPortrait;
 
   return (
     <section id="home" className="relative min-h-[90vh] sm:min-h-screen flex items-center justify-center pt-24 sm:pt-32 pb-12 sm:pb-20 overflow-hidden bg-primary">
@@ -141,13 +148,13 @@ export default function Hero() {
             {/* Inner Image Frame */}
             <div className="relative z-10 w-full h-full rounded-[28px] sm:rounded-[44px] overflow-hidden border border-white/10 glass-dark bg-secondary/90 flex items-center justify-center">
               <img 
-                 src={displayPortrait} 
+                 src={portraitSrc} 
                  alt={profile.name || "Rehman Hridoy"} 
                  loading="eager"
                  decoding="async"
                  className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-105 select-none" 
-                 onError={(e) => {
-                   (e.target as HTMLImageElement).src = heroPortrait;
+                 onError={() => {
+                   setPortraitSrc(heroPoster || heroPortrait);
                  }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent pointer-events-none" />

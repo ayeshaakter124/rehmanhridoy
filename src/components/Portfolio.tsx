@@ -112,7 +112,13 @@ export default function Portfolio() {
                   decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800&auto=format&fit=crop";
+                    const ytId = getYouTubeId(project.youtubeUrl);
+                    const target = e.target as HTMLImageElement;
+                    if (ytId && !target.src.includes("img.youtube.com")) {
+                      target.src = `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`;
+                    } else {
+                      target.src = "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800&auto=format&fit=crop";
+                    }
                   }}
                 />
                 

@@ -121,7 +121,7 @@ export default function PortfolioPage() {
             {filteredVideos.map((video, idx) => {
               const youtubeId = getYouTubeId(video.youtubeUrl);
               const ytFallback = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800&auto=format&fit=crop";
-              const displayImage = video.thumbnail || ytFallback;
+              const displayImage = (!video.thumbnail || video.thumbnail.includes("postimg.cc")) ? ytFallback : video.thumbnail;
               
               return (
                 <motion.div
