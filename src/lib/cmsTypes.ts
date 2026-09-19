@@ -101,6 +101,7 @@ export interface ClientBrand {
   projectCount?: string;
   category?: string;
   featured: boolean;
+  visible?: boolean;
   order: number;
 }
 

@@ -5,7 +5,6 @@
 
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useState, useEffect, lazy, Suspense } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import { cmsStore } from "./lib/cmsStore";
 import { SectionConfig } from "./lib/cmsTypes";
 import Navbar from "./components/Navbar";
@@ -32,11 +31,19 @@ function RouteLoadingFallback() {
   );
 }
 
+/**
+ * CloudDataLoader: fires-and-forgets a non-blocking cloud sync.
+ * The site renders immediately using localStorage / default data.
+ * When cloud data arrives it dispatches "cms_data_updated" to refresh live components.
+ * A 7-second abort timeout prevents any hangs.
+ */
 function CloudDataLoader() {
   useEffect(() => {
     let isMounted = true;
+
     const sync = async () => {
       try {
+        // Non-blocking: page is already rendered before this resolves
         await cmsStore.loadFromCloud();
         if (isMounted) {
           const seo = cmsStore.getSeo();
@@ -45,14 +52,19 @@ function CloudDataLoader() {
           }
         }
       } catch (err) {
-        console.warn("Background cloud sync note:", err);
+        // Swallow silently - the site works fine with local data
+        if (process.env.NODE_ENV !== "production") {
+          console.warn("Background cloud sync note:", err);
+        }
       }
     };
 
-    sync();
+    // Defer cloud sync until after first paint to not delay LCP
+    const timer = setTimeout(sync, 100);
 
     return () => {
       isMounted = false;
+      clearTimeout(timer);
     };
   }, []);
 
@@ -88,13 +100,15 @@ function ScrollToTop() {
 }
 
 function DynamicHomeSections() {
-  const [sections, setSections] = useState<SectionConfig[]>(() => 
-    cmsStore.getSections().filter(s => s.visible).sort((a, b) => a.order - b.order)
+  const [sections, setSections] = useState<SectionConfig[]>(() =>
+    cmsStore.getSections().filter((s) => s.visible).sort((a, b) => a.order - b.order)
   );
 
   useEffect(() => {
     const handleUpdate = () => {
-      setSections(cmsStore.getSections().filter(s => s.visible).sort((a, b) => a.order - b.order));
+      setSections(
+        cmsStore.getSections().filter((s) => s.visible).sort((a, b) => a.order - b.order)
+      );
     };
     window.addEventListener("cms_data_updated", handleUpdate);
     return () => {
@@ -127,9 +141,11 @@ function DynamicHomeSections() {
     }
   };
 
-  const displaySections = sections.length > 0 
-    ? sections 
-    : cmsStore.getSections();
+  // If no sections are visible (e.g. data not loaded yet), use the visible defaults
+  const displaySections =
+    sections.length > 0
+      ? sections
+      : cmsStore.getSections().filter((s) => s.visible).sort((a, b) => a.order - b.order);
 
   return (
     <div className="w-full">
@@ -142,18 +158,9 @@ function AnimatedRoutes() {
   return (
     <Suspense fallback={<RouteLoadingFallback />}>
       <Routes>
-        <Route
-          path="/"
-          element={<DynamicHomeSections />}
-        />
-        <Route
-          path="/work"
-          element={<PortfolioPage />}
-        />
-        <Route
-          path="/admin/*"
-          element={<AdminRouter />}
-        />
+        <Route path="/" element={<DynamicHomeSections />} />
+        <Route path="/work" element={<PortfolioPage />} />
+        <Route path="/admin/*" element={<AdminRouter />} />
       </Routes>
     </Suspense>
   );
@@ -168,16 +175,16 @@ function MainLayout() {
       <CloudDataLoader />
       <ScrollToTop />
       {!isAdmin && <Navbar />}
-      
+
       <main>
         <AnimatedRoutes />
       </main>
-      
+
       {!isAdmin && <Footer />}
-      
+
       {/* Scroll To Top Button */}
       {!isAdmin && (
-        <button 
+        <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-10 right-10 w-12 h-12 glass rounded-full flex items-center justify-center text-accent hover:bg-accent hover:text-primary transition-all duration-300 z-50 border border-white/10 glow-md"
         >
