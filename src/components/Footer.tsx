@@ -53,8 +53,8 @@ export default function Footer() {
             <span className="text-accent">{content.footerTagline || "Crafting Excellence."}</span>
           </p>
           <div className="flex items-center gap-4 sm:gap-6 text-[7px] sm:text-[9px] text-text-muted font-bold uppercase tracking-[0.2em] font-mono">
-            <a href="#" className="hover:text-text-pure transition-colors">Privacy</a>
-            <a href="#" className="hover:text-text-pure transition-colors">Terms</a>
+            <Link to="/#contact" className="hover:text-accent transition-colors">Privacy</Link>
+            <Link to="/#contact" className="hover:text-accent transition-colors">Terms</Link>
           </div>
         </div>
       </div>

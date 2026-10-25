@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Video, Plus, Edit3, Trash2, Play, Star, Eye, EyeOff, ArrowUp, ArrowDown } from "lucide-react";
+import { Video, Plus, Edit3, Trash2, Play, Star, Eye, EyeOff, ArrowUp, ArrowDown, Home, FolderOpen, Layers, Check } from "lucide-react";
 import { cmsStore } from "../../lib/cmsStore";
 import { VideoItem } from "../../lib/cmsTypes";
 import { FormInput, FormTextarea, FormSelect, FormToggle, ImagePreviewInput } from "../components/FormComponents";
@@ -28,6 +28,9 @@ export function VideoManager({ onAddToast }: VideoManagerProps) {
         duration: "0:45",
         featured: true,
         published: true,
+        showOnMainPage: true,
+        showInViewMore: true,
+        placement: "both",
       });
     }
     setIsModalOpen(true);
@@ -44,7 +47,7 @@ export function VideoManager({ onAddToast }: VideoManagerProps) {
     setVideos(updated);
     setIsModalOpen(false);
     setEditingVideo(null);
-    onAddToast("success", "Video saved to showcase! 🎥");
+    onAddToast("success", "Video saved with placement controls! 🎥");
   };
 
   const handleDelete = () => {
@@ -53,6 +56,22 @@ export function VideoManager({ onAddToast }: VideoManagerProps) {
     setVideos(updated);
     setDeleteTargetId(null);
     onAddToast("success", "Video removed successfully.");
+  };
+
+  const handleToggleMainPage = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const updated = cmsStore.toggleVideoPlacement(id, "main");
+    setVideos(updated);
+    const target = updated.find(v => v.id === id);
+    onAddToast("info", `Placement updated for "${target?.title}".`);
+  };
+
+  const handleToggleViewMore = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const updated = cmsStore.toggleVideoPlacement(id, "view_more");
+    setVideos(updated);
+    const target = updated.find(v => v.id === id);
+    onAddToast("info", `Placement updated for "${target?.title}".`);
   };
 
   const handleMove = (index: number, direction: "up" | "down") => {
@@ -73,19 +92,19 @@ export function VideoManager({ onAddToast }: VideoManagerProps) {
   return (
     <div className="space-y-8 animate-fadeIn">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-secondary/60 border border-white/10">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-3xl bg-secondary/60 border border-white/10 shadow-lg">
         <div>
           <h2 className="text-lg font-display font-bold text-text-pure flex items-center gap-2">
-            <Video size={20} className="text-accent" /> Dedicated Video Streams Showcase
+            <Video size={20} className="text-accent" /> Dedicated Video Showcase
           </h2>
           <p className="text-xs text-text-soft mt-0.5">
-            Manage high-retention video streams, quality badges, and direct YouTube/Vimeo embeds.
+            Manage high-retention video streams, quality badges, and placement controls.
           </p>
         </div>
 
         <button
           onClick={() => handleOpenModal()}
-          className="px-5 py-3 rounded-2xl bg-accent hover:bg-accent-hover text-primary font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-accent/20 transition-all shrink-0"
+          className="px-5 py-3 rounded-2xl bg-accent hover:bg-accent-hover text-primary font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-accent/20 transition-all shrink-0 active:scale-95"
         >
           <Plus size={16} /> Add Video
         </button>
@@ -93,84 +112,122 @@ export function VideoManager({ onAddToast }: VideoManagerProps) {
 
       {/* Videos List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {videos.map((v, idx) => (
-          <div
-            key={v.id}
-            className="rounded-3xl bg-secondary/40 border border-white/10 hover:border-accent/30 transition-all overflow-hidden flex flex-col group shadow-lg"
-          >
-            <div className="relative aspect-video bg-primary/80 overflow-hidden">
-              <img
-                src={v.thumbnail}
-                alt={v.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
+        {videos.map((v, idx) => {
+          const isMain = v.showOnMainPage !== false;
+          const isViewMore = v.showInViewMore !== false;
 
-              <div className="absolute top-3 left-3 flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md text-[10px] font-bold text-accent uppercase tracking-wider">
-                  {v.category}
-                </span>
-                {v.qualityBadge && (
-                  <span className="px-2 py-0.5 rounded bg-accent text-primary text-[9px] font-bold uppercase">
-                    {v.qualityBadge}
+          return (
+            <div
+              key={v.id}
+              className="rounded-3xl bg-secondary/40 border border-white/10 hover:border-accent/40 transition-all overflow-hidden flex flex-col group shadow-lg"
+            >
+              <div className="relative aspect-video bg-primary/80 overflow-hidden">
+                <img
+                  src={v.thumbnail}
+                  alt={v.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+
+                <div className="absolute top-3 left-3 flex items-center gap-2">
+                  <span className="px-2.5 py-1 rounded-full bg-black/80 backdrop-blur-md text-[10px] font-bold text-accent uppercase tracking-wider">
+                    {v.category}
                   </span>
-                )}
-              </div>
-
-              <div className="absolute top-3 right-3 flex items-center gap-1.5">
-                <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase ${
-                  v.published ? "bg-green-500/80 text-white" : "bg-amber-500/80 text-primary"
-                }`}>
-                  {v.published ? "Published" : "Draft"}
-                </span>
-              </div>
-            </div>
-
-            <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
-              <div>
-                <h3 className="text-base font-display font-bold text-text-pure line-clamp-1 group-hover:text-accent transition-colors">
-                  {v.title}
-                </h3>
-                <p className="text-xs text-text-muted mt-1 font-mono">
-                  {v.client ? `Client: ${v.client}` : "General Showcase"} {v.duration && `• ${v.duration}`}
-                </p>
-              </div>
-
-              <div className="pt-3 border-t border-white/5 flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <button
-                    disabled={idx === 0}
-                    onClick={() => handleMove(idx, "up")}
-                    className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-text-soft disabled:opacity-30"
-                  >
-                    <ArrowUp size={14} />
-                  </button>
-                  <button
-                    disabled={idx === videos.length - 1}
-                    onClick={() => handleMove(idx, "down")}
-                    className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-text-soft disabled:opacity-30"
-                  >
-                    <ArrowDown size={14} />
-                  </button>
+                  {v.qualityBadge && (
+                    <span className="px-2 py-0.5 rounded bg-accent text-primary text-[9px] font-bold uppercase">
+                      {v.qualityBadge}
+                    </span>
+                  )}
                 </div>
 
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={() => handleOpenModal(v)}
-                    className="p-2 rounded-xl bg-accent/20 hover:bg-accent/30 text-accent font-bold"
-                  >
-                    <Edit3 size={15} />
-                  </button>
-                  <button
-                    onClick={() => setDeleteTargetId(v.id)}
-                    className="p-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400"
-                  >
-                    <Trash2 size={15} />
-                  </button>
+                <div className="absolute top-3 right-3 flex items-center gap-1.5">
+                  <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase ${
+                    v.published ? "bg-green-500/80 text-white" : "bg-amber-500/80 text-primary"
+                  }`}>
+                    {v.published ? "Published" : "Draft"}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                <div>
+                  <h3 className="text-base font-display font-bold text-text-pure line-clamp-1 group-hover:text-accent transition-colors">
+                    {v.title}
+                  </h3>
+                  <p className="text-xs text-text-muted mt-1 font-mono">
+                    {v.client ? `Client: ${v.client}` : "General Showcase"} {v.duration && `• ${v.duration}`}
+                  </p>
+
+                  {/* 1-Click Placement Toggles */}
+                  <div className="mt-3 p-2.5 rounded-2xl bg-primary/40 border border-white/5 space-y-1.5">
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-text-muted font-mono block">
+                      Placement:
+                    </span>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={(e) => handleToggleMainPage(v.id, e)}
+                        className={`px-2 py-1 rounded-xl text-[9px] font-bold uppercase flex items-center justify-center gap-1 border transition-all ${
+                          isMain
+                            ? "bg-emerald-500/20 border-emerald-500/40 text-emerald-300"
+                            : "bg-white/5 border-white/10 text-text-muted"
+                        }`}
+                      >
+                        <Home size={10} /> Home: {isMain ? "ON" : "OFF"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => handleToggleViewMore(v.id, e)}
+                        className={`px-2 py-1 rounded-xl text-[9px] font-bold uppercase flex items-center justify-center gap-1 border transition-all ${
+                          isViewMore
+                            ? "bg-sky-500/20 border-sky-500/40 text-sky-300"
+                            : "bg-white/5 border-white/10 text-text-muted"
+                        }`}
+                      >
+                        <FolderOpen size={10} /> View More: {isViewMore ? "ON" : "OFF"}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-1">
+                    <button
+                      disabled={idx === 0}
+                      onClick={() => handleMove(idx, "up")}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-text-soft disabled:opacity-30"
+                      title="Move Up"
+                    >
+                      <ArrowUp size={14} />
+                    </button>
+                    <button
+                      disabled={idx === videos.length - 1}
+                      onClick={() => handleMove(idx, "down")}
+                      className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-text-soft disabled:opacity-30"
+                      title="Move Down"
+                    >
+                      <ArrowDown size={14} />
+                    </button>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => handleOpenModal(v)}
+                      className="p-2 rounded-xl bg-accent/20 hover:bg-accent/30 text-accent font-bold"
+                    >
+                      <Edit3 size={15} />
+                    </button>
+                    <button
+                      onClick={() => setDeleteTargetId(v.id)}
+                      className="p-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400"
+                    >
+                      <Trash2 size={15} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Add / Edit Video Modal */}
@@ -182,6 +239,45 @@ export function VideoManager({ onAddToast }: VideoManagerProps) {
             </h3>
 
             <form onSubmit={handleSave} className="space-y-4">
+              {/* Placement Selector */}
+              <div className="p-4 rounded-2xl bg-primary/80 border border-accent/30 space-y-2.5">
+                <label className="text-xs font-bold text-accent uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                  <Layers size={13} /> Video Placement Control
+                </label>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div
+                    onClick={() => setEditingVideo({ ...editingVideo, placement: "both", showOnMainPage: true, showInViewMore: true })}
+                    className={`p-2.5 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
+                      editingVideo.showOnMainPage !== false && editingVideo.showInViewMore !== false
+                        ? "bg-accent/20 border-accent text-accent"
+                        : "bg-secondary/40 border-white/5 text-text-muted"
+                    }`}
+                  >
+                    Both Pages
+                  </div>
+                  <div
+                    onClick={() => setEditingVideo({ ...editingVideo, placement: "main", showOnMainPage: true, showInViewMore: false })}
+                    className={`p-2.5 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
+                      editingVideo.showOnMainPage === true && editingVideo.showInViewMore === false
+                        ? "bg-emerald-500/20 border-emerald-500 text-emerald-400"
+                        : "bg-secondary/40 border-white/5 text-text-muted"
+                    }`}
+                  >
+                    Main Page
+                  </div>
+                  <div
+                    onClick={() => setEditingVideo({ ...editingVideo, placement: "view_more", showOnMainPage: false, showInViewMore: true })}
+                    className={`p-2.5 rounded-xl border text-xs font-bold cursor-pointer transition-all ${
+                      editingVideo.showOnMainPage === false && editingVideo.showInViewMore === true
+                        ? "bg-sky-500/20 border-sky-500 text-sky-400"
+                        : "bg-secondary/40 border-white/5 text-text-muted"
+                    }`}
+                  >
+                    View More
+                  </div>
+                </div>
+              </div>
+
               <FormInput
                 label="Video Title"
                 required

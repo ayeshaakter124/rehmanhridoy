@@ -15,7 +15,8 @@ import {
   Sparkles,
   ExternalLink,
   Briefcase,
-  User
+  Home,
+  FolderOpen
 } from "lucide-react";
 import { StatCard } from "../components/StatCard";
 import { cmsStore } from "../../lib/cmsStore";
@@ -40,6 +41,8 @@ export function DashboardOverview({ onNavigateTab, onAddToast }: DashboardOvervi
 
   const publishedProjects = projects.filter(p => p.published).length;
   const draftProjects = projects.filter(p => !p.published).length;
+  const mainProjects = projects.filter(p => p.showOnMainPage !== false).length;
+  const viewMoreProjects = projects.filter(p => p.showInViewMore !== false).length;
   const unreadMessages = messages.filter(m => !m.read).length;
 
   return (
@@ -101,19 +104,19 @@ export function DashboardOverview({ onNavigateTab, onAddToast }: DashboardOvervi
         />
 
         <StatCard
-          label="Video Showcase"
-          value={videos.length}
-          icon={<Video size={22} />}
-          detail="High-retention 4K streams"
-          onClick={() => onNavigateTab("videos")}
+          label="Main Page Videos"
+          value={mainProjects}
+          icon={<Home size={22} />}
+          detail="Curated for Homepage showcase"
+          onClick={() => onNavigateTab("projects")}
         />
 
         <StatCard
-          label="Trusted Clients"
-          value={clients.length}
-          icon={<Building2 size={22} />}
-          detail="Brands & Studio Logos"
-          onClick={() => onNavigateTab("clients")}
+          label="View More Work"
+          value={viewMoreProjects}
+          icon={<FolderOpen size={22} />}
+          detail="Assigned to /work gallery"
+          onClick={() => onNavigateTab("projects")}
         />
 
         <StatCard

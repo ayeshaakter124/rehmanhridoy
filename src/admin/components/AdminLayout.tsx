@@ -27,23 +27,35 @@ export function AdminLayout({
   onLogout,
 }: AdminLayoutProps) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isCloudConnected, setIsCloudConnected] = useState(() => cloudStore.isConfigured());
+  const [isCloudConnected, setIsCloudConnected] = useState(() => cloudStore.getLastConnectionState().isOnline);
   const [isSyncing, setIsSyncing] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [unreadMessages, setUnreadMessages] = useState(() => cmsStore.getMessages().filter(m => !m.read).length);
 
   useEffect(() => {
+    // Check live health
+    cloudStore.checkHealth();
+
+    const handleHealthUpdate = (e: any) => {
+      setIsCloudConnected(Boolean(e.detail?.isOnline));
+    };
+
     const handleUpdate = () => {
-      setIsCloudConnected(cloudStore.isConfigured());
       setUnreadMessages(cmsStore.getMessages().filter(m => !m.read).length);
     };
 
+    const handleConfig = () => {
+      cloudStore.checkHealth();
+    };
+
     window.addEventListener("cms_data_updated", handleUpdate);
-    window.addEventListener("rh_cloud_config_updated", handleUpdate);
+    window.addEventListener("rh_cloud_config_updated", handleConfig);
+    window.addEventListener("rh_cloud_health_updated", handleHealthUpdate);
     return () => {
       window.removeEventListener("cms_data_updated", handleUpdate);
-      window.removeEventListener("rh_cloud_config_updated", handleUpdate);
+      window.removeEventListener("rh_cloud_config_updated", handleConfig);
+      window.removeEventListener("rh_cloud_health_updated", handleHealthUpdate);
     };
   }, []);
 

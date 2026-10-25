@@ -25,6 +25,11 @@ const cleanUrl = (raw?: string) => {
   return raw.trim().replace(/\/rest\/v1\/?$/, "").replace(/\/$/, "");
 };
 
+let lastConnectionState: { isOnline: boolean; lastChecked: number; errorMessage?: string } = {
+  isOnline: false,
+  lastChecked: 0,
+};
+
 export const cloudStore = {
   getConfig(): CloudConfig {
     try {
@@ -58,12 +63,35 @@ export const cloudStore = {
     };
     localStorage.setItem(STORAGE_KEYS.CLOUD_CONFIG, JSON.stringify(updated));
     window.dispatchEvent(new Event("rh_cloud_config_updated"));
+    // Trigger health check on save
+    this.checkHealth();
     return updated;
   },
 
   isConfigured(): boolean {
     const config = this.getConfig();
     return Boolean(config.supabaseUrl && config.supabaseAnonKey);
+  },
+
+  async checkHealth(): Promise<{ isOnline: boolean; message: string }> {
+    const config = this.getConfig();
+    if (!config.supabaseUrl || !config.supabaseAnonKey) {
+      lastConnectionState = { isOnline: false, lastChecked: Date.now(), errorMessage: "Credentials missing" };
+      window.dispatchEvent(new CustomEvent("rh_cloud_health_updated", { detail: lastConnectionState }));
+      return { isOnline: false, message: "Supabase credentials not configured." };
+    }
+    const res = await this.testConnection(config.supabaseUrl, config.supabaseAnonKey);
+    lastConnectionState = {
+      isOnline: res.success,
+      lastChecked: Date.now(),
+      errorMessage: res.success ? undefined : res.message,
+    };
+    window.dispatchEvent(new CustomEvent("rh_cloud_health_updated", { detail: lastConnectionState }));
+    return { isOnline: res.success, message: res.message };
+  },
+
+  getLastConnectionState() {
+    return lastConnectionState;
   },
 
   async testConnection(url?: string, key?: string): Promise<{ success: boolean; message: string }> {
@@ -109,7 +137,7 @@ export const cloudStore = {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
       try { controller.abort(); } catch {}
-    }, 6000);
+    }, 7000);
 
     try {
       const res = await fetch(`${baseUrl}/rest/v1/portfolio_data?select=id,data`, {
@@ -119,6 +147,8 @@ export const cloudStore = {
           apikey: config.supabaseAnonKey,
           Authorization: `Bearer ${config.supabaseAnonKey}`,
           "Content-Type": "application/json",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
         },
       });
       clearTimeout(timeoutId);
@@ -187,10 +217,10 @@ export const cloudStore = {
 
     const baseUrl = config.supabaseUrl.replace(/\/$/, "");
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
 
     try {
-      await fetch(`${baseUrl}/rest/v1/portfolio_data`, {
+      const res = await fetch(`${baseUrl}/rest/v1/portfolio_data`, {
         method: "POST",
         signal: controller.signal,
         headers: {
@@ -204,9 +234,31 @@ export const cloudStore = {
         ]),
       });
       clearTimeout(timeoutId);
+
+      if (!res.ok) {
+        lastConnectionState = {
+          isOnline: false,
+          lastChecked: Date.now(),
+          errorMessage: `HTTP ${res.status}`,
+        };
+        window.dispatchEvent(new CustomEvent("rh_cloud_health_updated", { detail: lastConnectionState }));
+        console.warn(`Cloud sync failed for ${key}: HTTP ${res.status}`);
+        return false;
+      }
+      lastConnectionState = {
+        isOnline: true,
+        lastChecked: Date.now(),
+      };
+      window.dispatchEvent(new CustomEvent("rh_cloud_health_updated", { detail: lastConnectionState }));
       return true;
-    } catch (err) {
+    } catch (err: any) {
       clearTimeout(timeoutId);
+      lastConnectionState = {
+        isOnline: false,
+        lastChecked: Date.now(),
+        errorMessage: err.message || "Network error",
+      };
+      window.dispatchEvent(new CustomEvent("rh_cloud_health_updated", { detail: lastConnectionState }));
       console.warn(`Background sync failed for ${key}:`, err);
       return false;
     }

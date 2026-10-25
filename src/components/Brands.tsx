@@ -52,7 +52,7 @@ export default function Brands() {
                   <img 
                     src={client.logo} 
                     alt={client.name}
-                    className="h-5 sm:h-6 object-contain opacity-70 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0"
+                    className="h-5 sm:h-6 object-contain opacity-70 group-hover:opacity-100 transition-opacity filter invert brightness-200"
                     onError={(e) => {
                       (e.target as HTMLElement).style.display = "none";
                     }}

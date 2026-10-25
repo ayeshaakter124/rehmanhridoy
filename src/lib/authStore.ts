@@ -39,7 +39,7 @@ export const authStore = {
 
   getAttempts(): { count: number; lockedUntil: number } {
     try {
-      const saved = sessionStorage.getItem(RATE_LIMIT_KEY);
+      const saved = localStorage.getItem(RATE_LIMIT_KEY);
       return saved ? JSON.parse(saved) : { count: 0, lockedUntil: 0 };
     } catch {
       return { count: 0, lockedUntil: 0 };
@@ -56,7 +56,7 @@ export const authStore = {
       lockedUntil = Date.now() + 60 * 1000;
     }
 
-    sessionStorage.setItem(RATE_LIMIT_KEY, JSON.stringify({ count, lockedUntil }));
+    localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify({ count, lockedUntil }));
 
     if (lockedUntil > Date.now()) {
       return { locked: true, waitSeconds: Math.ceil((lockedUntil - Date.now()) / 1000) };
@@ -65,7 +65,7 @@ export const authStore = {
   },
 
   resetAttempts(): void {
-    sessionStorage.removeItem(RATE_LIMIT_KEY);
+    localStorage.removeItem(RATE_LIMIT_KEY);
   },
 
   login(identifier: string, secretKey: string): { success: boolean; error?: string } {
@@ -91,7 +91,7 @@ export const authStore = {
         loginTime: Date.now(),
         expiresAt: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
       };
-      sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
       return { success: true };
     }
 
@@ -104,7 +104,7 @@ export const authStore = {
 
   getSession(): AuthSession | null {
     try {
-      const saved = sessionStorage.getItem(AUTH_STORAGE_KEY);
+      const saved = localStorage.getItem(AUTH_STORAGE_KEY);
       if (!saved) return null;
       const session: AuthSession = JSON.parse(saved);
       if (session.expiresAt && session.expiresAt < Date.now()) {
@@ -122,6 +122,6 @@ export const authStore = {
   },
 
   logout(): void {
-    sessionStorage.removeItem(AUTH_STORAGE_KEY);
+    localStorage.removeItem(AUTH_STORAGE_KEY);
   }
 };

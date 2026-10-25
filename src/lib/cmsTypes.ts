@@ -73,6 +73,9 @@ export interface ProjectItem {
   featured: boolean;
   published: boolean;
   order: number;
+  showOnMainPage?: boolean; // Controls visibility on Main Page (Home)
+  showInViewMore?: boolean; // Controls visibility on "View More Work" inner page
+  placement?: "both" | "main" | "view_more"; // Combined placement selector
 }
 
 export interface VideoItem {
@@ -90,6 +93,9 @@ export interface VideoItem {
   featured: boolean;
   published: boolean;
   order: number;
+  showOnMainPage?: boolean;
+  showInViewMore?: boolean;
+  placement?: "both" | "main" | "view_more";
 }
 
 export interface ClientBrand {

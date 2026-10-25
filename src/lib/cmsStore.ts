@@ -100,6 +100,9 @@ export const DEFAULT_CMS_STATE: CMSState = {
       featured: true,
       published: true,
       order: 1,
+      showOnMainPage: true,
+      showInViewMore: true,
+      placement: "both",
     },
     {
       id: "proj_2",
@@ -116,6 +119,9 @@ export const DEFAULT_CMS_STATE: CMSState = {
       featured: true,
       published: true,
       order: 2,
+      showOnMainPage: true,
+      showInViewMore: true,
+      placement: "both",
     },
     {
       id: "proj_3",
@@ -131,6 +137,9 @@ export const DEFAULT_CMS_STATE: CMSState = {
       featured: true,
       published: true,
       order: 3,
+      showOnMainPage: true,
+      showInViewMore: true,
+      placement: "both",
     },
     {
       id: "proj_4",
@@ -147,6 +156,9 @@ export const DEFAULT_CMS_STATE: CMSState = {
       featured: true,
       published: true,
       order: 4,
+      showOnMainPage: true,
+      showInViewMore: true,
+      placement: "both",
     },
     {
       id: "proj_5",
@@ -161,6 +173,9 @@ export const DEFAULT_CMS_STATE: CMSState = {
       featured: true,
       published: true,
       order: 5,
+      showOnMainPage: true,
+      showInViewMore: true,
+      placement: "both",
     },
     {
       id: "proj_6",
@@ -169,12 +184,15 @@ export const DEFAULT_CMS_STATE: CMSState = {
       category: "Motion Graphics",
       description: "Complex glitch effects, chromatic aberration, and futuristic cyberpunk typography experiment.",
       thumbnail: "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=800&auto=format&fit=crop",
-      youtubeUrl: "https://www.youtube.com/watch?v=BvXGPhE-Tto",
+      youtubeUrl: "https://www.youtube.com/embed/BvXGPhE-Tto?rel=0",
       duration: "0:30",
       role: "VFX & Sound Designer",
       featured: true,
       published: true,
       order: 6,
+      showOnMainPage: true,
+      showInViewMore: true,
+      placement: "both",
     },
     {
       id: "proj_7",
@@ -189,6 +207,9 @@ export const DEFAULT_CMS_STATE: CMSState = {
       featured: true,
       published: true,
       order: 7,
+      showOnMainPage: false,
+      showInViewMore: true,
+      placement: "view_more",
     },
     {
       id: "proj_8",
@@ -203,6 +224,9 @@ export const DEFAULT_CMS_STATE: CMSState = {
       featured: true,
       published: true,
       order: 8,
+      showOnMainPage: false,
+      showInViewMore: true,
+      placement: "view_more",
     },
     {
       id: "proj_9",
@@ -217,6 +241,9 @@ export const DEFAULT_CMS_STATE: CMSState = {
       featured: true,
       published: true,
       order: 9,
+      showOnMainPage: false,
+      showInViewMore: true,
+      placement: "view_more",
     },
     {
       id: "proj_10",
@@ -231,6 +258,9 @@ export const DEFAULT_CMS_STATE: CMSState = {
       featured: true,
       published: true,
       order: 10,
+      showOnMainPage: false,
+      showInViewMore: true,
+      placement: "view_more",
     },
   ],
 
@@ -527,7 +557,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       company: "TechNexus",
       text: "My retention rates skyrocketed by 40% in just one month of working together. Fast, reliable, and incredibly creative with hooks.",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
-      youtubeUrl: "https://www.youtube.com/watch?v=ScMzIvxBSi4",
+      youtubeUrl: "https://www.youtube.com/embed/ScMzIvxBSi4?rel=0",
       rating: 5,
       featured: true,
       visible: true,
@@ -540,7 +570,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
       company: "Luxe Fashion Co.",
       text: "A master of storytelling. Our commercial looked like a high-budget Hollywood production. The flow and color were impeccable.",
       image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop",
-      youtubeUrl: "https://www.youtube.com/watch?v=F3SpxOLeq0U",
+      youtubeUrl: "https://www.youtube.com/embed/F3SpxOLeq0U?rel=0",
       rating: 5,
       featured: true,
       visible: true,
@@ -793,19 +823,70 @@ export const cmsStore = {
 
   getProjects(): ProjectItem[] {
     const raw = this.get("projects") || DEFAULT_CMS_STATE.projects;
-    return raw.map(p => ({
-      ...p,
-      thumbnail: sanitizeThumbnail(p.thumbnail, p.youtubeUrl),
-    }));
+    return raw.map(p => {
+      const showOnMain = p.showOnMainPage !== undefined 
+        ? Boolean(p.showOnMainPage) 
+        : p.placement === "view_more" ? false : true;
+      const showInView = p.showInViewMore !== undefined 
+        ? Boolean(p.showInViewMore) 
+        : p.placement === "main" ? false : true;
+      const placement: "both" | "main" | "view_more" = 
+        p.placement || (showOnMain && showInView ? "both" : showOnMain ? "main" : "view_more");
+
+      return {
+        ...p,
+        thumbnail: sanitizeThumbnail(p.thumbnail, p.youtubeUrl),
+        showOnMainPage: showOnMain,
+        showInViewMore: showInView,
+        placement,
+      };
+    });
   },
+
   saveProject(item: Partial<ProjectItem> & { id?: string }): ProjectItem[] {
     const list = this.getProjects();
+    
+    // Normalize placement
+    let showOnMain = item.showOnMainPage;
+    let showInView = item.showInViewMore;
+    let placement = item.placement;
+
+    if (placement) {
+      if (placement === "both") {
+        showOnMain = true;
+        showInView = true;
+      } else if (placement === "main") {
+        showOnMain = true;
+        showInView = false;
+      } else if (placement === "view_more") {
+        showOnMain = false;
+        showInView = true;
+      }
+    } else if (showOnMain !== undefined || showInView !== undefined) {
+      const m = showOnMain ?? true;
+      const v = showInView ?? true;
+      placement = (m && v) ? "both" : m ? "main" : "view_more";
+      showOnMain = m;
+      showInView = v;
+    } else {
+      showOnMain = true;
+      showInView = true;
+      placement = "both";
+    }
+
+    const normalized = {
+      ...item,
+      showOnMainPage: showOnMain,
+      showInViewMore: showInView,
+      placement,
+    };
+
     if (item.id) {
       const idx = list.findIndex(i => i.id === item.id);
       if (idx !== -1) {
-        list[idx] = { ...list[idx], ...item } as ProjectItem;
+        list[idx] = { ...list[idx], ...normalized } as ProjectItem;
       } else {
-        list.push(item as ProjectItem);
+        list.push(normalized as ProjectItem);
       }
     } else {
       const newProj: ProjectItem = {
@@ -820,12 +901,45 @@ export const cmsStore = {
         featured: item.featured ?? true,
         published: item.published ?? true,
         order: list.length + 1,
-        ...item,
+        ...normalized,
       };
       list.unshift(newProj);
     }
     return this.set("projects", list);
   },
+
+  toggleProjectPlacement(id: string, target: "main" | "view_more"): ProjectItem[] {
+    const list = this.getProjects();
+    const idx = list.findIndex(i => i.id === id);
+    if (idx === -1) return list;
+
+    const item = list[idx];
+    let showOnMain = item.showOnMainPage ?? true;
+    let showInView = item.showInViewMore ?? true;
+
+    if (target === "main") {
+      showOnMain = !showOnMain;
+    } else if (target === "view_more") {
+      showInView = !showInView;
+    }
+
+    const placement: "both" | "main" | "view_more" = 
+      (showOnMain && showInView) ? "both" : showOnMain ? "main" : "view_more";
+
+    list[idx] = {
+      ...item,
+      showOnMainPage: showOnMain,
+      showInViewMore: showInView,
+      placement,
+    };
+    return this.set("projects", list);
+  },
+
+  reorderProjects(reorderedList: ProjectItem[]): ProjectItem[] {
+    const updated = reorderedList.map((item, idx) => ({ ...item, order: idx + 1 }));
+    return this.set("projects", updated);
+  },
+
   deleteProject(id: string): ProjectItem[] {
     const filtered = this.getProjects().filter(i => i.id !== id);
     return this.set("projects", filtered);
@@ -833,19 +947,69 @@ export const cmsStore = {
 
   getVideos(): VideoItem[] {
     const raw = this.get("videos") || DEFAULT_CMS_STATE.videos;
-    return raw.map(v => ({
-      ...v,
-      thumbnail: sanitizeThumbnail(v.thumbnail, v.youtubeUrl),
-    }));
+    return raw.map(v => {
+      const showOnMain = v.showOnMainPage !== undefined 
+        ? Boolean(v.showOnMainPage) 
+        : v.placement === "view_more" ? false : true;
+      const showInView = v.showInViewMore !== undefined 
+        ? Boolean(v.showInViewMore) 
+        : v.placement === "main" ? false : true;
+      const placement: "both" | "main" | "view_more" = 
+        v.placement || (showOnMain && showInView ? "both" : showOnMain ? "main" : "view_more");
+
+      return {
+        ...v,
+        thumbnail: sanitizeThumbnail(v.thumbnail, v.youtubeUrl),
+        showOnMainPage: showOnMain,
+        showInViewMore: showInView,
+        placement,
+      };
+    });
   },
+
   saveVideo(item: Partial<VideoItem> & { id?: string }): VideoItem[] {
     const list = this.getVideos();
+
+    let showOnMain = item.showOnMainPage;
+    let showInView = item.showInViewMore;
+    let placement = item.placement;
+
+    if (placement) {
+      if (placement === "both") {
+        showOnMain = true;
+        showInView = true;
+      } else if (placement === "main") {
+        showOnMain = true;
+        showInView = false;
+      } else if (placement === "view_more") {
+        showOnMain = false;
+        showInView = true;
+      }
+    } else if (showOnMain !== undefined || showInView !== undefined) {
+      const m = showOnMain ?? true;
+      const v = showInView ?? true;
+      placement = (m && v) ? "both" : m ? "main" : "view_more";
+      showOnMain = m;
+      showInView = v;
+    } else {
+      showOnMain = true;
+      showInView = true;
+      placement = "both";
+    }
+
+    const normalized = {
+      ...item,
+      showOnMainPage: showOnMain,
+      showInViewMore: showInView,
+      placement,
+    };
+
     if (item.id) {
       const idx = list.findIndex(i => i.id === item.id);
       if (idx !== -1) {
-        list[idx] = { ...list[idx], ...item } as VideoItem;
+        list[idx] = { ...list[idx], ...normalized } as VideoItem;
       } else {
-        list.push(item as VideoItem);
+        list.push(normalized as VideoItem);
       }
     } else {
       const newVid: VideoItem = {
@@ -857,12 +1021,40 @@ export const cmsStore = {
         featured: item.featured ?? true,
         published: item.published ?? true,
         order: list.length + 1,
-        ...item,
+        ...normalized,
       };
       list.unshift(newVid);
     }
     return this.set("videos", list);
   },
+
+  toggleVideoPlacement(id: string, target: "main" | "view_more"): VideoItem[] {
+    const list = this.getVideos();
+    const idx = list.findIndex(i => i.id === id);
+    if (idx === -1) return list;
+
+    const item = list[idx];
+    let showOnMain = item.showOnMainPage ?? true;
+    let showInView = item.showInViewMore ?? true;
+
+    if (target === "main") {
+      showOnMain = !showOnMain;
+    } else if (target === "view_more") {
+      showInView = !showInView;
+    }
+
+    const placement: "both" | "main" | "view_more" = 
+      (showOnMain && showInView) ? "both" : showOnMain ? "main" : "view_more";
+
+    list[idx] = {
+      ...item,
+      showOnMainPage: showOnMain,
+      showInViewMore: showInView,
+      placement,
+    };
+    return this.set("videos", list);
+  },
+
   deleteVideo(id: string): VideoItem[] {
     const filtered = this.getVideos().filter(i => i.id !== id);
     return this.set("videos", filtered);
@@ -1222,6 +1414,10 @@ export const cmsStore = {
       "contactInfo", "content", "sections", "seo", "media", "messages"
     ];
 
+    // Cloud-first: clear ALL existing localStorage CMS keys before writing fresh cloud data.
+    // This ensures admin deletions (fewer items in cloud) propagate globally.
+    const allLocalKeys = Object.keys(localStorage).filter(k => k.startsWith(CMS_STORAGE_PREFIX));
+    
     keys.forEach(k => {
       if (bundle[k] !== undefined && bundle[k] !== null) {
         let val = bundle[k];

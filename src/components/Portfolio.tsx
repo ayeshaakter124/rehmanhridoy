@@ -19,13 +19,13 @@ export default function Portfolio() {
   const [activeTab, setActiveTab] = useState("Reels");
   const [selectedVideo, setSelectedVideo] = useState<{ id: string, title: string } | null>(null);
   const [projectsList, setProjectsList] = useState<ProjectItem[]>(() => 
-    cmsStore.getProjects().filter(p => p.published)
+    cmsStore.getProjects().filter(p => p.published && p.showOnMainPage !== false)
   );
   const [content, setContent] = useState<WebsiteContent>(() => cmsStore.getContent());
 
   useEffect(() => {
     const handleUpdate = () => {
-      setProjectsList(cmsStore.getProjects().filter(p => p.published));
+      setProjectsList(cmsStore.getProjects().filter(p => p.published && p.showOnMainPage !== false));
       setContent(cmsStore.getContent());
     };
     window.addEventListener("cms_data_updated", handleUpdate);

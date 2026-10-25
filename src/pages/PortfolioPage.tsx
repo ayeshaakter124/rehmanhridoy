@@ -20,12 +20,12 @@ export default function PortfolioPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedVideo, setSelectedVideo] = useState<{ id: string, title: string } | null>(null);
   const [videoProjects, setVideoProjects] = useState<ProjectItem[]>(() => 
-    cmsStore.getProjects().filter(p => p.published)
+    cmsStore.getProjects().filter(p => p.published && p.showInViewMore !== false)
   );
 
   useEffect(() => {
     const handleUpdate = () => {
-      setVideoProjects(cmsStore.getProjects().filter(p => p.published));
+      setVideoProjects(cmsStore.getProjects().filter(p => p.published && p.showInViewMore !== false));
     };
     window.addEventListener("cms_data_updated", handleUpdate);
     return () => {
