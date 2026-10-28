@@ -16,7 +16,8 @@ import {
   ExternalLink,
   Briefcase,
   Home,
-  FolderOpen
+  FolderOpen,
+  User
 } from "lucide-react";
 import { StatCard } from "../components/StatCard";
 import { cmsStore } from "../../lib/cmsStore";
