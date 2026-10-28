@@ -43,7 +43,6 @@ function CloudDataLoader() {
 
     const sync = async () => {
       try {
-        // Non-blocking: page is already rendered before this resolves
         await cmsStore.loadFromCloud();
         if (isMounted) {
           const seo = cmsStore.getSeo();
@@ -52,19 +51,28 @@ function CloudDataLoader() {
           }
         }
       } catch (err) {
-        // Swallow silently - the site works fine with local data
         if (process.env.NODE_ENV !== "production") {
           console.warn("Background cloud sync note:", err);
         }
       }
     };
 
-    // Defer cloud sync until after first paint to not delay LCP
-    const timer = setTimeout(sync, 100);
+    // Immediate initial sync
+    sync();
+
+    // Re-sync whenever visitor returns to tab (e.g. after editing in admin panel or switching tabs)
+    const handleFocus = () => {
+      sync();
+    };
+    window.addEventListener("focus", handleFocus);
+
+    // Periodic sync every 60s for live global updates
+    const interval = setInterval(sync, 60000);
 
     return () => {
       isMounted = false;
-      clearTimeout(timer);
+      window.removeEventListener("focus", handleFocus);
+      clearInterval(interval);
     };
   }, []);
 

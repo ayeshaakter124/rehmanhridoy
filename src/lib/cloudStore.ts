@@ -14,9 +14,12 @@ const STORAGE_KEYS = {
   CLOUD_CONFIG: "rh_portfolio_cloud_config_v1",
 };
 
+export const DEFAULT_SUPABASE_URL = "https://vvmtwfllqurvjhpstyxt.supabase.co";
+export const DEFAULT_SUPABASE_ANON_KEY = "sb_publishable_tMZNkQnnWo-nudlHjp1C1Q_ngKclLYu";
+
 const DEFAULT_CLOUD_CONFIG: CloudConfig = {
-  supabaseUrl: import.meta.env.VITE_SUPABASE_URL || "",
-  supabaseAnonKey: import.meta.env.VITE_SUPABASE_ANON_KEY || "",
+  supabaseUrl: (typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_URL) || DEFAULT_SUPABASE_URL,
+  supabaseAnonKey: (typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_ANON_KEY) || DEFAULT_SUPABASE_ANON_KEY,
   autoSync: true,
 };
 
@@ -33,13 +36,16 @@ let lastConnectionState: { isOnline: boolean; lastChecked: number; errorMessage?
 export const cloudStore = {
   getConfig(): CloudConfig {
     try {
-      const envUrl = cleanUrl(import.meta.env.VITE_SUPABASE_URL || "");
-      const envKey = (import.meta.env.VITE_SUPABASE_ANON_KEY || "").trim();
-      const saved = localStorage.getItem(STORAGE_KEYS.CLOUD_CONFIG);
+      const envUrl = cleanUrl((typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_URL) || "") || DEFAULT_SUPABASE_URL;
+      const envKey = ((typeof import.meta !== "undefined" && import.meta.env?.VITE_SUPABASE_ANON_KEY) || "").trim() || DEFAULT_SUPABASE_ANON_KEY;
+      const saved = typeof localStorage !== "undefined" ? localStorage.getItem(STORAGE_KEYS.CLOUD_CONFIG) : null;
       const parsed = saved ? JSON.parse(saved) : {};
 
-      const supabaseUrl = cleanUrl(parsed.supabaseUrl) || envUrl;
-      const supabaseAnonKey = (parsed.supabaseAnonKey || "").trim() || envKey;
+      const rawUrl = cleanUrl(parsed.supabaseUrl);
+      const supabaseUrl = (rawUrl && rawUrl.includes("supabase.co")) ? rawUrl : envUrl;
+      const rawKey = (parsed.supabaseAnonKey || "").trim();
+      const isKeyValid = Boolean(rawKey && (rawKey.startsWith("sb_") || rawKey.startsWith("eyJ")));
+      const supabaseAnonKey = isKeyValid ? rawKey : envKey;
       const autoSync = parsed.autoSync !== undefined ? parsed.autoSync : true;
 
       return {
@@ -182,7 +188,7 @@ export const cloudStore = {
     }));
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 6000);
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     try {
       const res = await fetch(`${baseUrl}/rest/v1/portfolio_data`, {
@@ -217,7 +223,7 @@ export const cloudStore = {
 
     const baseUrl = config.supabaseUrl.replace(/\/$/, "");
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
 
     try {
       const res = await fetch(`${baseUrl}/rest/v1/portfolio_data`, {

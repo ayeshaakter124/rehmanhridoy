@@ -362,7 +362,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
     {
       id: "stat_1",
       label: "Years Of Experience",
-      value: "2+",
+      value: "3+",
       detail: "Active production experience with top brands.",
       iconName: "Award",
       order: 1,
@@ -371,7 +371,7 @@ export const DEFAULT_CMS_STATE: CMSState = {
     {
       id: "stat_2",
       label: "Projects Completed",
-      value: "183+",
+      value: "870+",
       detail: "High-retention commercials, reels, and SaaS videos.",
       iconName: "Film",
       order: 2,
